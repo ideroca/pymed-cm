@@ -1,4 +1,5 @@
 from typing import TypeVar
+import re
 
 
 def batches(iterable: list, n: int = 1) -> list:
@@ -40,6 +41,8 @@ def getContent(
     # Find the path in the element
     result = element.findall(path)
 
+    
+
     # Return the default if there is no such element
     if result is None or len(result) == 0:
         return default
@@ -47,3 +50,11 @@ def getContent(
     # Extract the text and return it
     else:
         return separator.join([sub.text for sub in result if sub.text is not None])
+
+def str_replace(text, list_of_strings, replace_with=''):
+    for i in list_of_strings:
+        text = text.replace(i, replace_with)
+    return text
+
+def find_all_occurrencies(substring, string):
+    return [m.start() for m in re.finditer(substring, string)]
